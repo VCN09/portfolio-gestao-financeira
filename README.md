@@ -31,9 +31,9 @@ O núcleo do sistema foi modelado para suportar granularidade de despesas. A est
 
 *(O diagrama ER completo está disponível na documentação interna do projeto no Miro).*
 
-##  Snippet de Código: Padrão de Qualidade
+##  Snippet de Código
 
-Abaixo, um exemplo da nossa implementação de Models, demonstrando o uso de UUIDs, Enums e validações em tempo de inicialização (Defense-in-Depth):
+Implementação de Models, demonstrando o uso de UUIDs, Enums e validações em tempo de inicialização (Defense-in-Depth):
 ```python
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import validates
