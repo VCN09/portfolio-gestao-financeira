@@ -24,6 +24,23 @@ A escolha de cada tecnologia foi pautada em resiliência e performance:
     *   Hash de Senhas: Utilização de Bcrypt com salt adaptativo para garantir que senhas nunca sejam armazenadas em texto plano, mitigando riscos de vazamento de credenciais.
     *   Isolamento de Dados (Multi-Tenancy): Implementação de filtros obrigatórios por usuario_id em todas as queries, garantindo conformidade com a LGPD e prevenindo ataques de IDOR (Insecure Direct Object Reference).
 
+##  Segurança e Arquitetura Multi-Tenant
+O projeto implementa o conceito de **Privacy by Design**, garantindo o isolamento total de dados entre diferentes usuários (Tenants):
+
+- **Autenticação Stateless:** Implementada via **JWT (JSON Web Tokens)** com expiração segura.
+- **Criptografia de Senhas:** Utilização de **Bcrypt** para garantir que credenciais nunca sejam armazenadas em texto plano.
+- **Isolamento de Dados (Multi-Tenancy):** Cada registro no banco de dados é vinculado a um `usuario_id` (UUID v4). Todas as consultas à API filtram automaticamente os resultados pelo ID do usuário autenticado, prevenindo vulnerabilidades de **IDOR**.
+
+### Exemplo de Modelagem Protegida (SQLAlchemy):
+```python
+class Categoria(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    nome = db.Column(db.String(100), nullable=False)
+    usuario_id = db.Column(UUID(as_uuid=True), db.ForeignKey('usuarios.id'), nullable=False)
+    
+    # O isolamento garante que Ana não acesse as categorias do Vitor
+    usuario = db.relationship('Usuario', back_populates='categorias')
+
 ##  Arquitetura Multi-Tenant
 Arquitetura Multi-Tenant: O sistema utiliza o modelo de banco de dados único com isolamento lógico. Cada registro é vinculado a um UUID de usuário, garantindo privacidade total entre as personas (Ex: "A", "B" e "C").
 
