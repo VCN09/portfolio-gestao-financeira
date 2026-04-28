@@ -54,6 +54,7 @@ Subcategoria (1) -> (N) Transação
 
 
 ## Snippet de Código: Implementação de Models
+Demonstração do uso de UUIDs e validações em tempo de inicialização (Defense-in-Depth):
 
 import uuid
 from sqlalchemy import Column, String, ForeignKey, Index
