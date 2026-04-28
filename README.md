@@ -33,7 +33,7 @@ O projeto implementa o conceito de **Privacy by Design**, garantindo o isolament
 *   **Isolamento Lógico:** Cada registro no banco de dados é vinculado a um `usuario_id` (UUID v4). Todas as consultas à API filtram automaticamente os resultados pelo ID do usuário autenticado, prevenindo vulnerabilidades de **ID
 
 
-## Exemplo de Modelagem Protegida (SQLAlchemy):
+## Exemplo de Modelagem Protegida (SQLAlchemy)
 
 class Categoria(db.Model):
     __tablename__ = 'categorias'
